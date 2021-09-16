@@ -62,16 +62,17 @@
                 //location.href = "http://www.microsoft.com";
             }else {
                 // DO SOMETHING ELSE
+                alert("On firefox")
                 //location.href = "http://www.microsoft.com"
             }
 
             // 2
-            function repeatingText(){
+           /* function repeatingText(){
                 for(var i=0; i < 50; i++){
                     document.write("Hoi maailma!<br>");
                 }
             }
-            repeatingText();
+            repeatingText(); */
 
             // 3 esim.
             if ( navigator.userAgent.indexOf("Edge") > -1 ){
@@ -89,11 +90,13 @@
                 navigator.href="http://www.hs.fi"
             }
             // 4
-            if (confirm('Where to go?') == true){
+            if (confirm('Are you student?') == true){
                 console.log("You pressed ok");
+                alert("Welcome student");
             }
             else {
                 console.log("You pressed Cancel");
+                alert("Sorry, this page is for students only");
             }
 
             //5
@@ -107,7 +110,7 @@
 
             document.write("<img src='https://cdn-images-1.medium.com/max/1600/1*ot7tWiPCYC01pV0kGmK3qQ.png'>");
 
-            document.images[0].src = images[number];
+            document.images[1].src = images[number];
 		</script>
 	</body>
 </html>
