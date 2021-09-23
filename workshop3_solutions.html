@@ -31,7 +31,7 @@
                     <th>Salary</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id = "person_list">
                 <tr>
                     <td>Tiger Nixon</td>
                     <td>System Architect</td>
@@ -90,7 +90,10 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
         <div onmousemove="showXY(event);" id="coordinates"></div>
         <p>Mouse over the rectangle above, and get the coordinates of your mouse pointer.</p>
         <p>When the mouse is moved over the div, use document.write to display the horizontal and vertical coordinates of your mouse pointer, whose values are returned from the X and Y properties on the MouseEvent object.</p>
-        <script>
+        <p> <br>
+		</p>
+		<p id="table-here2"</p>
+		<script>
             <!-- JavaScript goes here -->
             // This counter is used to keep in track of the keypresses
             // It has to be declared here, so that it doesnt get reset on every keypress
@@ -109,12 +112,8 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
             // button 2
             // Outputs an html table on the page
             function showTable(){
-                document.getElementById('table-here').innerHTML = "<table border='1'><tr><td>First column</td><td>Two second</td></tr></table>";
-            }
-            // Optional: use backticks
-            function showTable2(){
-                var html = `
-                <table id="example" class="display" cellspacing="0" width="100%">
+                document.getElementById('table-here').innerHTML = `
+                <table id="example1" class="display" cellspacing="0" width="100%">
                    <thead>
                       <tr>
                          <th>Name</th>
@@ -124,7 +123,7 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
                    </thead>
                    <tbody>
                       <tr>
-                         <td>Tiger Nixon</td>
+                         <td>Higher Willis</td>
                          <td>System Architect</td>
                          <td>$320,800</td>
                       </tr>
@@ -141,7 +140,39 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
                    </tbody>
                 </table>
                 `;
-                document.write( html );
+            }
+            // Optional: use backticks
+            function showTable2(){
+                var html = `
+                <table id="example2" class="display" cellspacing="0" width="100%">
+                   <thead>
+                      <tr>
+                         <th>Name</th>
+                         <th>Position</th>
+                         <th>Salary</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      <tr>
+                         <td>Higer Willis</td>
+                         <td>System Architect</td>
+                         <td>$320,800</td>
+                      </tr>
+                      <tr>
+                         <td>Garrett Winters</td>
+                         <td>Accountant</td>
+                         <td>$170,750</td>
+                      </tr>
+                      <tr>
+                         <td>Ashton Cox</td>
+                         <td>Junior Technical Author</td>
+                         <td>$86,000</td>
+                      </tr>
+                   </tbody>
+                </table>
+                `;
+                // document.write( html );
+				document.getElementById('table-here2').innerHTML = html;
             }
             // button 3
             function geoLocation() {
@@ -151,10 +182,10 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
                     maximumAge: 0
                 };
                 navigator.geolocation.getCurrentPosition(success, error, [options]);
-                function success(pos) {
-                    var text = 'Your current position is: latitude: ' + pos.coords.latitude + ' longitude: ' + pos.coords.longitude;
+                function success(position) {
+                    var text = 'Your current position is: latitude: ' + position.coords.latitude + ' longitude: ' + position.coords.longitude;
                     console.log(text);
-                    document.write(text);
+                    alert(text);
 
                 }
                 function error() {
@@ -163,9 +194,12 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
             }
             // Ex1. Button 3
             function printArrayData(){
+			//var persons = [{name: "Higher Willis", position: "Manager", salary: "3500"}];
+			var persons = ["Higher Willis","Manager","3500", "Larry Mill", "Project Manager","3000"];
                 document.write("<table border='1'>");
                 for (var i=0; i < persons.length; i+=3){
-                    document.write("<tr><td>" + persons[i] + "</td><td>" + persons[i+1] + "</td><td>" + persons[i+2] + "</td></tr>");
+                    //document.write("<tr><td>" + persons[i].name + "</td><td>" + persons[i].position + "</td><td>" + persons[i].salary + "</td></tr>");
+					document.write("<tr><td>" + persons[i] + "</td><td>" + persons[i+1] + "</td><td>" + persons[i+2] + "</td></tr>");
                 }
                 document.write("</table>");
             }
@@ -175,14 +209,23 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
                 counter++;
                 // Find an element with an id "counter" and place the variable there
                 document.getElementById('counter').innerHTML = counter;
+				
             }
             function attention(){
                 // Find the element with an id "textbox" on the page
                 var textbox = document.getElementById('textdata');
                 // Change the contents
-                textbox.value='Please fill in with proper data!'
-                // Change the background to red
-                textbox.style ="background: red";
+				var x = textbox.value;
+				// alert("Value: " + x.length);
+				if (x.length < 1 ){
+					textbox.value='Please fill in with proper data!';
+					// Change the background to red
+					textbox.style ="background: red";
+					
+				} else{
+					textbox.style = "bacground: white";
+				}
+				
             }
             function validate(){
                 var textbox = document.getElementById('textdata');
@@ -201,5 +244,4 @@ over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
         </script>
     </body>
 </html>
-
 
