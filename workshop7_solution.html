@@ -76,7 +76,7 @@
 		<p>
 			<input type="button" name="Fetch2" id="Fetch2" value="Button" onclick="loadXMLFile()">
 		</p>
-		<div id="quotes"></div>
+		<div id="myDiv"></div>
 		<p>&nbsp;</p>
 		<hr/>
 		<h2>Exercise 3: Parsing the XML</h2>
@@ -109,9 +109,7 @@
 		<p>Next try fetching data from a web service. Use either Yahoo news feed  <a href="https://meijastiina.github.io/news_rss_topstories.xml" target="_blank">https://meijastiina.github.io/news_rss_topstories.xml</a> (downloaded from <a href="https://news.yahoo.com/rss/topstories" target="_blank">https://news.yahoo.com/rss/topstories</a>, security restriction do not allow sending AJAX calls to Yahoo) or a Finnish one (<a href="http://www.iltalehti.fi/rss/uutiset.xml" target="_blank">http://www.iltalehti.fi/rss/uutiset.xml</a>).</p>
 		<p>Parse the results and display on page below as a list. You can add link to the original news item as well.</p>
 		<ul>
-			<li>News heading 1</li>
-			<li>News heading 2</li>
-			<li><a href="#">News heading 3</a></li>
+			<li><a href="#">News heading </a></li>
 		</ul>
 		<input type="button" name="Fetch3" id="Fetch3b" value="Load YAHOO newsfeed" onclick="loadAndParseNews('https://meijastiina.github.io/news_rss_topstories.xml')">
 		<input type="button" name="Fetch3" id="Fetch3c" value="Load Iltalehti Newsfeed" onclick="loadAndParseNews('http://www.iltalehti.fi/rss/uutiset.xml')">
@@ -124,8 +122,12 @@
                 var adata = document.getElementsByTagName('author');
                 // Output on console.
                 // You can also use qdata[0].childNodes[0].nodeValue;
-                console.log ( qdata[0].innerHTML );
-                console.log ( adata[0].innerHTML );
+				for(var i = 0; i < qdata.length; i++){
+					console.log ( qdata[i].innerHTML );
+                	console.log ( adata[i].innerHTML );
+				}
+                //console.log ( qdata[0].innerHTML );
+                //console.log ( adata[0].innerHTML );
                 /*
                 // If there were many tags, one could loop through it
                 for (var i=0; i < x.length; i++){
@@ -144,7 +146,7 @@
                 xmlhttp.onreadystatechange = function() {
                     if(xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                         // find myDiv and insert results there
-                        document.getElementById("quotes").innerHTML = xmlhttp.responseText;
+                        document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
                     }
                 }
             }
