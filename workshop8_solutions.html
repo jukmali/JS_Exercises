@@ -52,7 +52,7 @@
             <li>When you have completed this, add functionality to an input field, in which the user can write search queries which are sent to the OpenWeatherMap API and the system will run a search query which is retuned to your app.</li>
         </ul>
         <p>Select a city from the list:
-        <select name="mySelect" id="city" onchange="weatherSearch()">
+        <select name="mySelect" id="city" onchange="weatherSelect()">
             <option value="Helsinki">Helsinki</option>
             <option value="Stockholm">Stockholm</option>
             <option value="Rome">Rome</option>
@@ -98,7 +98,7 @@
 				}
 				var JSONdata;
                 function loadJSONdata(){
-					//alert("Taalla");
+					// Create data 
                     JSONdata = [
                         {
                             "_id": "58297a7e5ce6837d92edd2ee",
@@ -163,7 +163,7 @@
                             "guid": "8baa0953-14c3-46a7-95b4-fc35114e1d97",
                             "isActive": false,
                             "balance": "$2,348.12",
-                            "picture": "https://carleton.ca/csas/wp-content/uploads/icon-expert-black-1-200x200.png",
+                            "picture": "http://www.clipartkid.com/images/87/feature-dronsfield-thumbnail-tcm18-85321-jpg-VJAWsa-clipart.jpg",
                             "age": 27,
                             "eyeColor": "brown",
                             "name": {
@@ -410,8 +410,9 @@
                         // Just output the raw data
                         document.getElementById("rawdata").innerHTML = xmlhttp.responseText;
                     } 
-                }
-				// alert("Docdata jatkuu");
+                } 
+				
+                // Hakee paikallisesti
 				loadJSONdata();
 				document.getElementById("rawdata").innerHTML = JSONdata;
             }
@@ -430,14 +431,17 @@
                         printJSONTable(jsonObj);
                     }
 
-                }
-				printJSONTable(JSONdata);
+                } 
+                // Hakee paikallisesti
+                // loadJSONdata();
+				// printJSONTable(JSONdata);
             }
             function printJSONTable(jsonObj) {
                 // JSON data is stored in data variable
                 var data = jsonObj;
                 // Create a loop, which will run through the JSON data array. All the data will be collected to out -variable
                 var out = "<table>";
+                
                 for (var i=0; i < data.length; i++){
                     // for each loop round, we will create a new table for <tr> -tag and append (+=) the data to existing out -variable
                     out += '<tr>';
@@ -461,24 +465,24 @@
                 var data = jsonObj;
                 // Create a loop, which will run through the JSON data array. All the data will be collected to out -variable
                 var out = "<table>";
-                for (var i=0; i < data.length; i++){
-                    // for each loop round, we will create a new table for <tr> -tag and append (+=) the data to existing out -variable
-                    out += '<tr>';
-                    // For each cell, we will output data fields from JSON
-                    out += '<td>' + data[i].coord + '</td>';
-                    out += '<td>' + data[i].main + '</td>';
-                    out += '<td>' + data[i].sys+ '</td>';
-                    out += '<td>' + data[i].weather + '</td>';
-                    //out += '<td>' + data[i].picture + '</td>';
-                    //out += '<td><img src="'+ data[i].picture+'"></td>';
-                    out += '</tr>';
-                }
+                // alert(data.main.temp)
+                    
+                out += '<tr>';
+                // For each cell, we will output data fields from JSON
+                out += '<td>' + 'City: '+ data.name + '</td>'
+                out += '<td>' + 'Temperature: '+ data.main.temp + '</td>';
+                out += '<td>' + 'Clouds: '+ data.weather[0].description + '</td>';
+                out += '<td>' + 'Humidity: '+ data.main.humidity + '</td>';
+                out += '<td>' + 'Icon: ' + data.weather[0].icon + '</td>';
+                
+                out += '</tr>';
+                
                 // After all the data has been set, we will output closing tag for the table
                 out+="</table>";
                 // Place the newly created table in tabledata-div
                 document.getElementById("weatherdata").innerHTML = out;
             }
-            function weatherSearch(){
+            function weatherSelect(){
                 var selection = document.getElementById("city");
                 var city = selection.options[selection.selectedIndex].value;
                 var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&mode=JSON&APPID=ff64c247a136f706923d1ee0d55d71e2";
@@ -490,6 +494,24 @@
                         //	document.getElementById("content").innerHTML = xmlhttp.responseText;
                         jsonObj = JSON.parse(xmlhttp.responseText);
                         console.log(jsonObj);
+                        // Call for a function which will parse the data to a table
+                        printJSONWeatherTable(jsonObj);
+                    }
+                }
+            }
+
+            function weatherSearch(){
+            var selection = document.getElementById("citysearch");
+            var city = selection.value;
+            var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&mode=JSON&APPID=ff64c247a136f706923d1ee0d55d71e2";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    //	document.getElementById("content").innerHTML = xmlhttp.responseText;
+                    jsonObj = JSON.parse(xmlhttp.responseText);
+                    console.log(jsonObj);
                         // Call for a function which will parse the data to a table
                         printJSONWeatherTable(jsonObj);
                     }
